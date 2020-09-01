@@ -1,0 +1,22 @@
+{
+  "name": "intersection-observer-debugger",
+  "version": "0.1.0",
+  "main": "library.js",
+  "files": [
+    "library.js"
+  ],
+  "repository": "pomber/intersection-observer-debugger",
+  "author": "Rodrigo Pombo",
+  "license": "MIT",
+  "prettier": {
+    "semi": false
+  },
+  "scripts": {
+    "example-one": "parcel examples/1.html",
+    "example-two": "parcel examples/2.html",
+    "example-three": "parcel examples/3.html"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
+}

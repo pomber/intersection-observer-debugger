@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IOD</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .container {
+        height: 50vh;
+        width: 80vw;
+        max-width: 600px;
+        overflow-y: scroll;
+        border: 0.5vh solid black;
+        /* background: white; */
+      }
+      .item {
+        margin: 10vh 20px;
+        padding: 20px;
+        height: 10vh;
+        background: #ddd;
+        border: 3px solid #222;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+    <script src="../library.js"></script>
+    <script>
+      function callback(entries, observer) {
+        console.log(entries)
+      }
+      const options = {
+        // rootMargin: "-49% 0px",
+        // root: document.querySelector(".container"),
+        threshold: [0.5],
+      }
+      const io = new IntersectionObserver(callback, options)
+      document.querySelectorAll(".item").forEach((target) => io.observe(target))
+    </script>
+  </body>
+</html>
