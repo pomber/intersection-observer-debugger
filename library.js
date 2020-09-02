@@ -34,13 +34,15 @@ const iodOptions = {
 
 function showEntry(entry) {
   addFlashingRect(entry.rootBounds, {
-    border: `10px solid ${iodOptions.rootColor}`,
+    border: `${Math.min(10, entry.rootBounds.height / 2)}px solid ${
+      iodOptions.rootColor
+    }`,
     overflow: "hidden",
     boxSizing: "border-box",
   })
 
   addFlashingRect(entry.boundingClientRect, {
-    border: `10px solid ${
+    border: `${Math.min(10, entry.boundingClientRect.height / 2)}px solid ${
       entry.isIntersecting ? iodOptions.enterColor : iodOptions.exitColor
     }`,
     overflow: "hidden",
