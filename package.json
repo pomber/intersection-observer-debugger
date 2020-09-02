@@ -1,6 +1,6 @@
 {
   "name": "intersection-observer-debugger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "library.js",
   "files": [
     "library.js"
