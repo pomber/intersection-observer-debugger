@@ -15,7 +15,7 @@ Import the script from your html:
 <script src="https://unpkg.com/intersection-observer-debugger"></script>
 ```
 
-Or, intall the dependency and import it from JS:
+Or, install the dependency and import it from JS:
 
 ```bash
 $ npm install intersection-observer-debugger --save-dev
