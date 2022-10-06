@@ -2,7 +2,7 @@ function wrapCallback(cb) {
   return (...args) => wrapper(cb, ...args)
 }
 
-function addFlashingRect(bounds, style = {}) {
+function addFlashingRect(bounds, style = {}, innerHTML, isIntersecting) {
   const { width, left, height, top } = bounds
   const div = document.createElement("div")
   div.style.position = "fixed"
@@ -11,7 +11,17 @@ function addFlashingRect(bounds, style = {}) {
   div.style.top = top + "px"
   div.style.height = height + "px"
   div.style.pointerEvents = "none"
-  div.style.transition = "opacity 2s ease-in"
+  div.style.zIndex = 2000
+
+  div.style.transition = "opacity 5s ease-in"
+  const text = document.createElement("span")
+  innerHTML ? (text.innerHTML = innerHTML) : null
+  text.style.backgroundColor = isIntersecting
+    ? iodOptions.enterColor
+    : iodOptions.exitColor
+
+  div.appendChild(text)
+
   Object.assign(div.style, style)
   requestAnimationFrame(() =>
     requestAnimationFrame(() => {
@@ -33,26 +43,40 @@ const iodOptions = {
 }
 
 function showEntry(entry) {
-  addFlashingRect(entry.rootBounds, {
-    border: `${Math.min(10, entry.rootBounds.height / 2)}px solid ${
-      iodOptions.rootColor
-    }`,
-    overflow: "hidden",
-    boxSizing: "border-box",
-  })
-
-  addFlashingRect(entry.boundingClientRect, {
-    border: `${Math.min(10, entry.boundingClientRect.height / 2)}px solid ${
-      entry.isIntersecting ? iodOptions.enterColor : iodOptions.exitColor
-    }`,
-    overflow: "hidden",
-    boxSizing: "border-box",
-  })
+  const text = `${entry.target.id && "ID:" + entry.target.id}${
+    entry.target.id && entry.target.className && "<br/>"
+  }${
+    entry.target.className && "Classes:" + entry.target.className
+  }<br/>isIntersecting: ${entry.isIntersecting}`
 
   addFlashingRect(entry.intersectionRect, {
     backgroundColor: iodOptions.interColor,
-    zIndex: 2,
   })
+
+  addFlashingRect(
+    entry.boundingClientRect,
+    {
+      border: `${Math.min(10, entry.boundingClientRect.height / 2)}px solid ${
+        entry.isIntersecting ? iodOptions.enterColor : iodOptions.exitColor
+      }`,
+      overflow: "hidden",
+      boxSizing: "border-box",
+    },
+    text,
+    entry.isIntersecting
+  )
+  addFlashingRect(
+    entry.rootBounds,
+    {
+      border: `${Math.min(10, entry.rootBounds.height / 2)}px solid ${
+        iodOptions.rootColor
+      }`,
+      overflow: "hidden",
+      boxSizing: "border-box",
+    },
+    text,
+    entry.isIntersecting
+  )
 }
 
 function wrapper(cb, entries, observer) {
